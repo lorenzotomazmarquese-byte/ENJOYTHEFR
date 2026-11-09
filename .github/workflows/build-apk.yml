@@ -20,13 +20,14 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Extrair projeto
+            - name: Extrair projeto
         run: |
           mkdir projeto
           unzip -q *.zip -d projeto
-          cd projeto
+          ROOT=$(find projeto -name settings.gradle.kts -printf '%h\n' | head -n 1)
+          cd "$ROOT"
           gradle assembleDebug
-
+          
       - uses: actions/upload-artifact@v4
         with:
           name: ENJOYTHEFR-APK
